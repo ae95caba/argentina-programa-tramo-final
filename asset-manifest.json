@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/clima/static/css/main.f5f697a3.css",
+    "main.js": "/clima/static/js/main.1e32e482.js",
+    "static/js/787.01f48bee.chunk.js": "/clima/static/js/787.01f48bee.chunk.js",
+    "static/media/max.svg": "/clima/static/media/max.185c6544f422ea19fb358966d84d44a8.svg",
+    "static/media/min.svg": "/clima/static/media/min.e0109dd2ca9b36523166294f0578cfc5.svg",
+    "static/media/humidity.svg": "/clima/static/media/humidity.e11b2f5b3c042971acc5dcda127cc9e1.svg",
+    "static/media/uv-index.svg": "/clima/static/media/uv-index.b0d925d0e553a339a26220a1985b6efc.svg",
+    "static/media/sunset.svg": "/clima/static/media/sunset.7f6feb3d075d2793e454de0690d9685e.svg",
+    "static/media/sunrise.svg": "/clima/static/media/sunrise.896f5a009d92f80ea351ff3705b632fa.svg",
+    "static/media/wind.svg": "/clima/static/media/wind.9cb5f330e4d8f7ec56301929e9846839.svg",
+    "static/media/eye.svg": "/clima/static/media/eye.9a7adca8decd07c097ecebb2a1b18491.svg",
+    "index.html": "/clima/index.html",
+    "main.f5f697a3.css.map": "/clima/static/css/main.f5f697a3.css.map",
+    "main.1e32e482.js.map": "/clima/static/js/main.1e32e482.js.map",
+    "787.01f48bee.chunk.js.map": "/clima/static/js/787.01f48bee.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.f5f697a3.css",
+    "static/js/main.1e32e482.js"
+  ]
+}
