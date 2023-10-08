@@ -2,6 +2,10 @@ import React from "react";
 import WeatherCard from "./WeatherCard";
 import sunset from "../assets/sunset.svg";
 import { data } from "../data";
+import eye from "../assets/eye.svg";
+import uvIndex from "../assets/uv-index.svg";
+import humidity from "../assets/humidity.svg";
+import wind from "../assets/wind.svg";
 import sunrise from "../assets/sunrise.svg";
 import { ISO8601DateStringToHHMMString } from "../functions";
 export default function Highlights() {
@@ -11,13 +15,23 @@ export default function Highlights() {
   const sunsetHHMM = ISO8601DateStringToHHMMString(sunsetDateString);
   return (
     <section className="highlights">
-      <h2>Highlights</h2>
+      <h2>Destacado</h2>
       <div className="cards-container">
-        <WeatherCard title={"UV INDEX"}>{data.daily.uv_index_max}</WeatherCard>
-        <WeatherCard title={"WIND STATUS"}>
-          {data.current_weather.windspeed} {data.daily_units.windspeed_10m_max}
+        <WeatherCard title={"Indice UV "}>
+          <p>{data.daily.uv_index_max}</p> <img src={uvIndex} alt="" />
         </WeatherCard>
-        <WeatherCard className={"sunrise-sunset"} title={"SUNRISE & SUNSET"}>
+
+        <WeatherCard title={"Estado del viento"}>
+          <p>
+            {data.current_weather.windspeed}
+            {data.daily_units.windspeed_10m_max}
+          </p>
+          <img src={wind} alt="" />
+        </WeatherCard>
+        <WeatherCard
+          className={"sunrise-sunset"}
+          title={"Amanecer y salida del sol"}
+        >
           <div className="subcontainer">
             <p className="sunrise">{sunriseHHMM}</p>
             <img src={sunrise} alt="" />
@@ -26,14 +40,20 @@ export default function Highlights() {
             <p className="sunset">{sunsetHHMM}</p> <img src={sunset} alt="" />
           </div>
         </WeatherCard>
-        <WeatherCard title={"HUMIDITY"}>
-          {data.hourly.relativehumidity_2m[0]}
-          {data.hourly_units.relativehumidity_2m}
+        <WeatherCard title={"Humedad"}>
+          <p>
+            {data.hourly.relativehumidity_2m[0]}
+            {data.hourly_units.relativehumidity_2m}
+          </p>
+          <img src={humidity} alt="" />
         </WeatherCard>
-        <WeatherCard title="VISIBILITY">
-          {data.hourly.visibility[0]} {data.hourly_units.visibility}
+        <WeatherCard title="Visibilidad">
+          <p>
+            {data.hourly.visibility[0]} {data.hourly_units.visibility}
+          </p>
+          <img src={eye} alt="" />
         </WeatherCard>
-        <WeatherCard title="AIR QUALITY"></WeatherCard>
+        <WeatherCard title="Calidad del aire"></WeatherCard>
       </div>
     </section>
   );

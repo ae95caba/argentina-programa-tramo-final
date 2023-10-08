@@ -8,6 +8,15 @@ html {
   border: 0;
 }
 
+:root {
+  --small: min(1.5vw, 1.5vh);
+  --medium: min(2vw, 2vh);
+  --large: min(2.5vw, 2.5vh);
+  --columns: min(12vw, 12vh);
+  --images: min(4vw, 4vh);
+  --barchat: min(50vw, 50vh);
+}
+
 #root,
 body,
 .App {
@@ -27,10 +36,32 @@ section.min-max-temp {
   top: 5%;
   left: 2%;
   width: fit-content;
-  font-size: 1.5vw;
+  font-size: var(--medium);
   display: flex;
-  gap: 1vw;
-  padding: 1vw;
+  gap: var(--small);
+  padding: var(--small);
+
+  & p {
+    text-align: center;
+  }
+
+  & .container {
+    display: flex;
+
+    align-items: center;
+  }
+  & img {
+    display: block;
+    width: var(--images);
+    height: var(--images);
+  }
+}
+
+.left,
+.right {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
 }
 
 section.current-temp {
@@ -38,11 +69,11 @@ section.current-temp {
   transform: translate(-50%, -50%);
   top: 10%;
   left: 50%;
-  font-size: 2vw;
+  font-size: var(--medium);
 }
 
 section.barchart-container {
-  width: 40vw;
+  width: var(--barchat);
   border: solid black 1px;
 
   position: absolute;
@@ -56,15 +87,15 @@ section.highlights {
   right: 2%;
   display: flex;
   flex-direction: column;
-  gap: 1vw;
-  font-size: 1vw;
+  gap: var(--small);
+  font-size: var(--small);
 
   & .sunrise-sunset {
     display: flex;
     flex-direction: column;
   }
   & img {
-    width: 5vw;
+    width: var(--images);
   }
   & .subcontainer {
     display: flex;
@@ -75,17 +106,22 @@ section.highlights {
 
 .cards-container {
   display: grid;
-  grid-template-columns: 10vw 10vw 10vw;
+  grid-template-columns: var(--columns) var(--columns) var(--columns);
 
   width: fit-content;
-  gap: 2vw;
+  gap: var(--medium);
 }
 
 .weather-card {
   border: solid black 1px;
-  border-radius: 1vw;
-  padding: 1vw;
+  border-radius: var(--small);
+  padding: var(--small);
   display: flex;
   flex-direction: column;
-  gap: 1vw;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--small);
+  & p {
+    text-align: center;
+  }
 }

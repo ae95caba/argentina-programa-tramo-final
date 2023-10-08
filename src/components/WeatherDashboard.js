@@ -21,7 +21,7 @@ export default function WeatherDashboard() {
     }),
     datasets: [
       {
-        label: "Temperatura",
+        label: "Temperatura por ahora",
         data: data.hourly.temperature_2m.map((temperature, index) => {
           if (index % 2 == 0) {
             return temperature;
