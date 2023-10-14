@@ -24,17 +24,31 @@ body,
   overflow: hidden;
 }
 .weather-dashboard {
-  width: 100%;
+  width: fit-content;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  margin: auto;
   height: 50%;
   border: solid black 1px;
   position: relative;
+  align-items: center;
+  justify-items: center;
+  grid-template-areas:
+    "highlights temperature"
+    " highlights     barchart ";
+}
+
+.temperature {
+  grid-area: temperature;
+  display: flex;
+  gap: var(--small);
 }
 
 section.min-max-temp {
   border: solid black 1px;
-  position: absolute;
-  top: 5%;
-  left: 2%;
+  border-radius: var(--small);
   width: fit-content;
   font-size: var(--medium);
   display: flex;
@@ -65,26 +79,22 @@ section.min-max-temp {
 }
 
 section.current-temp {
-  position: absolute;
-  transform: translate(-50%, -50%);
-  top: 10%;
-  left: 50%;
+  border: solid black 1px;
+  padding: var(--small);
   font-size: var(--medium);
+  grid-area: current-temp;
+  border-radius: var(--small);
 }
 
 section.barchart-container {
   width: var(--barchat);
   border: solid black 1px;
-
-  position: absolute;
-  bottom: 7%; /* Position at the bottom */
-  left: 2%;
+  grid-area: barchart;
 }
 
 section.highlights {
-  position: absolute;
-  bottom: 7%; /* Position at the bottom */
-  right: 2%;
+  grid-area: highlights;
+
   display: flex;
   flex-direction: column;
   gap: var(--small);

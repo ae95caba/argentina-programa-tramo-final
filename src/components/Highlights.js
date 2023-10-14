@@ -9,7 +9,7 @@ import wind from "../assets/wind.svg";
 import sunrise from "../assets/sunrise.svg";
 import { ISO8601DateStringToHHMMString } from "../functions";
 export default function Highlights() {
-  const { data } = useContext(DataContext);
+  const { data, airPolutionData } = useContext(DataContext);
 
   const sunriseDateString = data.daily.sunrise[0];
   const sunriseHHMM = ISO8601DateStringToHHMMString(sunriseDateString);
@@ -55,7 +55,9 @@ export default function Highlights() {
           </p>
           <img src={eye} alt="" />
         </WeatherCard>
-        <WeatherCard title="Calidad del aire"></WeatherCard>
+        <WeatherCard title="Calidad del aire">
+          {airPolutionData.current.us_aqi}
+        </WeatherCard>
       </div>
     </section>
   );

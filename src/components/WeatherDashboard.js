@@ -11,7 +11,7 @@ import DataContext from "../contexts/DataContext";
 import { ISO8601DateStringToHHMMString } from "../functions";
 Chart.register(CategoryScale);
 
-export default function WeatherDashboard({ data }) {
+export default function WeatherDashboard({ data, airPolutionData }) {
   const [hourlyTemperature, setHourlyTemperature] = useState({
     labels: data.hourly.time.map((timeString, index) => {
       if (index % 2 === 0) {
@@ -42,10 +42,12 @@ export default function WeatherDashboard({ data }) {
 
   return (
     <div className="weather-dashboard">
-      <DataContext.Provider value={{ data }}>
-        <MinMaxTemp />
+      <DataContext.Provider value={{ data, airPolutionData }}>
         <Highlights />
-        <CurrentTemp />
+        <div className="temperature">
+          <MinMaxTemp />
+          <CurrentTemp />
+        </div>
         <BarChart chartData={hourlyTemperature} />
       </DataContext.Provider>
     </div>
