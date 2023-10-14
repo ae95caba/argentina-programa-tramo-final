@@ -9,6 +9,7 @@ html {
 }
 
 :root {
+  --cool-shadow: 0 0 5px #00000080;
   --small: min(1.5vw, 1.5vh);
   --medium: min(2vw, 2vh);
   --large: min(2.5vw, 2.5vh);
@@ -47,7 +48,6 @@ body,
 }
 
 section.min-max-temp {
-  border: solid black 1px;
   border-radius: var(--small);
   width: fit-content;
   font-size: var(--medium);
@@ -78,8 +78,13 @@ section.min-max-temp {
   width: fit-content;
 }
 
+.current-temp,
+.min-max-temp,
+.barchart-container > * {
+  box-shadow: var(--cool-shadow);
+}
+
 section.current-temp {
-  border: solid black 1px;
   padding: var(--small);
   font-size: var(--medium);
   grid-area: current-temp;
@@ -88,7 +93,7 @@ section.current-temp {
 
 section.barchart-container {
   width: var(--barchat);
-  border: solid black 1px;
+  padding: var(--large);
   grid-area: barchart;
 }
 
@@ -123,7 +128,7 @@ section.highlights {
 }
 
 .weather-card {
-  border: solid black 1px;
+  box-shadow: var(--cool-shadow);
   border-radius: var(--small);
   padding: var(--small);
   display: flex;
