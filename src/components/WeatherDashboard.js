@@ -7,12 +7,12 @@ import { BarChart } from "./BarChart";
 import Chart from "chart.js/auto";
 import { CategoryScale } from "chart.js";
 
-import { data } from "../data";
+import DataContext from "../contexts/DataContext";
 import { ISO8601DateStringToHHMMString } from "../functions";
 Chart.register(CategoryScale);
 
-export default function WeatherDashboard() {
-  const [userData, setUserData] = useState({
+export default function WeatherDashboard({ data }) {
+  const [hourlyTemperature, setHourlyTemperature] = useState({
     labels: data.hourly.time.map((timeString, index) => {
       if (index % 2 === 0) {
         const timeStringHHMM = ISO8601DateStringToHHMMString(timeString);
@@ -42,11 +42,12 @@ export default function WeatherDashboard() {
 
   return (
     <div className="weather-dashboard">
-      <MinMaxTemp />
-      <Highlights />
-      <CurrentTemp />
-
-      <BarChart chartData={userData} />
+      <DataContext.Provider value={{ data }}>
+        <MinMaxTemp />
+        <Highlights />
+        <CurrentTemp />
+        <BarChart chartData={hourlyTemperature} />
+      </DataContext.Provider>
     </div>
   );
 }

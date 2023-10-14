@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import WeatherCard from "./WeatherCard";
 import sunset from "../assets/sunset.svg";
-import { data } from "../data";
+import DataContext from "../contexts/DataContext";
 import eye from "../assets/eye.svg";
 import uvIndex from "../assets/uv-index.svg";
 import humidity from "../assets/humidity.svg";
@@ -9,9 +9,11 @@ import wind from "../assets/wind.svg";
 import sunrise from "../assets/sunrise.svg";
 import { ISO8601DateStringToHHMMString } from "../functions";
 export default function Highlights() {
-  const sunriseDateString = data.daily.sunrise;
+  const { data } = useContext(DataContext);
+
+  const sunriseDateString = data.daily.sunrise[0];
   const sunriseHHMM = ISO8601DateStringToHHMMString(sunriseDateString);
-  const sunsetDateString = data.daily.sunset;
+  const sunsetDateString = data.daily.sunset[0];
   const sunsetHHMM = ISO8601DateStringToHHMMString(sunsetDateString);
   return (
     <section className="highlights">
@@ -23,8 +25,8 @@ export default function Highlights() {
 
         <WeatherCard title={"Estado del viento"}>
           <p>
-            {data.current_weather.windspeed}
-            {data.daily_units.windspeed_10m_max}
+            {data.current.windspeed_10m}
+            {data.current_units.windspeed_10m}
           </p>
           <img src={wind} alt="" />
         </WeatherCard>

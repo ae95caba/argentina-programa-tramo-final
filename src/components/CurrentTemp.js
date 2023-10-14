@@ -1,8 +1,10 @@
-import React from "react";
-import { data } from "../data";
+import React, { useContext } from "react";
+import DataContext from "../contexts/DataContext";
 import { ISO8601DateStringToHHMMString } from "../functions";
 export default function CurrentTemp() {
-  const currentTimeString = data.current_weather.time;
+  const { data } = useContext(DataContext);
+
+  const currentTimeString = data.current.time;
   const currentHHMM = ISO8601DateStringToHHMMString(currentTimeString);
 
   const date = new Date(currentTimeString);
@@ -20,7 +22,7 @@ export default function CurrentTemp() {
   return (
     <section className="current-temp">
       <p>
-        {data.current_weather.temperature}
+        {data.current.temperature_2m}
         <span>{data.hourly_units.temperature_2m}</span>
       </p>
       <p>

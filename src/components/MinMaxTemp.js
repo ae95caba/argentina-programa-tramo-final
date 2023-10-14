@@ -1,8 +1,10 @@
-import React from "react";
-import { data } from "../data";
+import React, { useContext } from "react";
+import DataContext from "../contexts/DataContext";
 import min from "../assets/min.svg";
 import max from "../assets/max.svg";
 export default function MinMaxTemp() {
+  const { data } = useContext(DataContext);
+
   return (
     <section className="min-max-temp">
       <div className="left">
