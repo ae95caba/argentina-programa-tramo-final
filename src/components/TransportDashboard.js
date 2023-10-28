@@ -4,7 +4,7 @@ import "leaflet/dist/leaflet.css";
 
 import { Icon } from "leaflet";
 import pin from "../assets/pin.svg";
-function TransportDashboard({ data }) {
+function TransportDashboard() {
   const [isALineSelected, setIsALineSelected] = useState(null);
   const [selectedLine, setSelectedLine] = useState(null);
   const center = [-34.589803, -58.460838];
@@ -36,8 +36,8 @@ function TransportDashboard({ data }) {
   async function fetchTransportData() {
     try {
       const apiUrl = `https://datosabiertos-transporte-apis.buenosaires.gob.ar/colectivos/vehiclePositionsSimple?route_id=${isALineSelected}&client_id=cb6b18c84b3b484d98018a791577af52&client_secret=3e3DB105Fbf642Bf88d5eeB8783EE1E6`;
-      const response = await fetch(apiUrl); // Make the fetch request
 
+      const response = await fetch(apiUrl, { mode: "cors" }); // Make the fetch request
       if (!response.ok) {
         throw new Error("Network response was not ok"); // Handle non-2xx responses
       }
@@ -107,7 +107,12 @@ function TransportDashboard({ data }) {
             position={[marker.latitude, marker.longitude]}
             icon={customIcon}
           >
-            <Popup>{marker.route_short_name}</Popup>
+            <Popup>
+              <p>{marker.route_short_name}</p>
+              <p>{marker.speed} km/h</p>
+              <p>{marker.agency_name}</p>
+              <p>{marker.trip_headsign}</p>
+            </Popup>
           </Marker>
         ))}
       </MapContainer>
