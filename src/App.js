@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 import "./App.css";
 
 import WeatherDashboard from "./components/WeatherDashboard";
+import TransportDashboard from "./components/TransportDashboard";
 
 function App() {
   const [weatherData, setWeatherData] = useState(null);
+
   const [airPolutionData, setAirPolutionData] = useState(null);
 
   useEffect(() => {
@@ -43,6 +45,7 @@ function App() {
       ) : (
         "Loading"
       )}
+      <TransportDashboard />
     </div>
   );
 }
