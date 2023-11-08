@@ -9,7 +9,7 @@ import wind from "../assets/wind.svg";
 import sunrise from "../assets/sunrise.svg";
 import { ISO8601DateStringToHHMMString } from "../functions";
 export default function Highlights() {
-  const { data, airPolutionData } = useContext(DataContext);
+  const { data, airPolutionData, selectedLocation } = useContext(DataContext);
 
   const sunriseDateString = data.daily.sunrise[0];
   const sunriseHHMM = ISO8601DateStringToHHMMString(sunriseDateString);
@@ -17,6 +17,7 @@ export default function Highlights() {
   const sunsetHHMM = ISO8601DateStringToHHMMString(sunsetDateString);
   return (
     <section className="highlights">
+      <h1>{selectedLocation ? selectedLocation.name : "Mariano Acosta"}</h1>
       <h2>Destacado</h2>
       <div className="cards-container">
         <WeatherCard title={"Indice UV "}>

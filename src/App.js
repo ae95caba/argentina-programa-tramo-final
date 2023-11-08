@@ -9,25 +9,32 @@ function App() {
 
   const [airPolutionData, setAirPolutionData] = useState(null);
 
-  const [inputValue, setInputValue] = useState(null);
+  const [searchboxValue, setSearchboxValue] = useState(null);
 
-  const dataListRef = useRef(null);
-  /*   const [selet] */
-
+  const [selectedLocation, setSelectedLocation] = useState(null);
+  const firstLiRef = useRef(null);
   const [options, setOptions] = useState(null);
 
-  async function fetchApi() {
+  useEffect(() => {
+    console.log(selectedLocation);
+  }, [selectedLocation]);
+
+  async function fetchLocations() {
     try {
-      const url = `https://geocoding-api.open-meteo.com/v1/search?name=${inputValue}&count=5&language=es&format=json`;
+      const url = `https://geocoding-api.open-meteo.com/v1/search?name=${searchboxValue}&count=5&language=es&format=json`;
       const response = await fetch(url);
       const data = await response.json();
       const results = data.results;
-      console.log("------------------");
-      console.log(`data is : ${JSON.stringify(data)}`);
-      console.log(`results is: ${results}`);
+
       const transformedResults = results?.map((result) => {
-        return { name: result.name, city: result.admin1 };
+        return {
+          name: result.name,
+          city: result.admin1,
+          lat: result.latitude,
+          lon: result.longitude,
+        };
       });
+      console.log(`transformed r : ${JSON.stringify(transformedResults)}`);
       setOptions(transformedResults);
     } catch (error) {
       console.log(error);
@@ -35,14 +42,23 @@ function App() {
   }
 
   useEffect(() => {
-    fetchApi();
-  }, [inputValue]);
+    fetchLocations();
+  }, [searchboxValue]);
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const airPolutionApiUrl = `https://air-quality-api.open-meteo.com/v1/air-quality?latitude=-34.7163&longitude=-58.7946&current=us_aqi&timezone=auto&forecast_days=1`;
-        const weatherApiUrl = `https://api.open-meteo.com/v1/forecast?latitude=-34.7163&longitude=-58.7946&current=temperature_2m,relativehumidity_2m,windspeed_10m,winddirection_10m&hourly=temperature_2m,relativehumidity_2m,visibility,uv_index&daily=temperature_2m_max,temperature_2m_min,sunrise,sunset,uv_index_max&timezone=America%2FAnchorage&forecast_days=1`;
+        const airPolutionApiUrl = `https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${
+          selectedLocation ? selectedLocation.lat : "-34.7163"
+        }&longitude=${
+          selectedLocation ? selectedLocation.lon : "-58.7946"
+        }&current=us_aqi&timezone=auto&forecast_days=1`;
+        const weatherApiUrl = `https://api.open-meteo.com/v1/forecast?latitude=${
+          selectedLocation ? selectedLocation.lat : "-34.7163"
+        }&longitude=${
+          selectedLocation ? selectedLocation.lon : "-58.7946"
+        }&current=temperature_2m,relativehumidity_2m,windspeed_10m,winddirection_10m&hourly=temperature_2m,relativehumidity_2m,visibility,uv_index&daily=temperature_2m_max,temperature_2m_min,sunrise,sunset,uv_index_max&timezone=America%2FAnchorage&forecast_days=1`;
+
         const weatherResponse = await fetch(weatherApiUrl); // Make the fetch request
         const airPolutionrResponse = await fetch(airPolutionApiUrl); // Make the fetch request
         if (!weatherResponse.ok || !airPolutionrResponse) {
@@ -62,13 +78,19 @@ function App() {
     }
 
     fetchData();
-  }, []);
+  }, [selectedLocation]);
 
   return (
     <div className="App">
       {weatherData ? (
         <div className="weather-dashboard-container">
-          <DataContext.Provider value={{ data: weatherData, airPolutionData }}>
+          <DataContext.Provider
+            value={{
+              data: weatherData,
+              airPolutionData,
+              selectedLocation: selectedLocation,
+            }}
+          >
             <WeatherDashboard />
           </DataContext.Provider>
           <div className="searchbox">
@@ -76,20 +98,38 @@ function App() {
               list="input"
               placeholder="asdf"
               onInput={(e) => {
-                setInputValue(e.target.value);
+                setSearchboxValue(e.target.value);
               }}
             />
             <button
               onClick={() => {
-                console.log(dataListRef.current);
+                if (options) {
+                  const firstOption = options[0];
+                  setSelectedLocation({
+                    name: firstOption.name,
+                    lat: firstOption.lat,
+                    lon: firstOption.lon,
+                  });
+                } else {
+                  alert("Debes buscar algo");
+                }
               }}
             >
               Buscar
             </button>
             <ul>
-              {options?.map((option) => {
+              {options?.map((option, index) => {
                 return (
-                  <li>
+                  <li
+                    className={index}
+                    onClick={() => {
+                      setSelectedLocation({
+                        name: option.name,
+                        lat: option.lat,
+                        lon: option.lon,
+                      });
+                    }}
+                  >
                     {option.name} {option.city}
                   </li>
                 );
