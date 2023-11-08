@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import "./App.css";
-
+import DataContext from "./contexts/DataContext";
 import WeatherDashboard from "./components/WeatherDashboard";
 import TransportDashboard from "./components/TransportDashboard";
 
@@ -8,6 +8,35 @@ function App() {
   const [weatherData, setWeatherData] = useState(null);
 
   const [airPolutionData, setAirPolutionData] = useState(null);
+
+  const [inputValue, setInputValue] = useState(null);
+
+  const dataListRef = useRef(null);
+  /*   const [selet] */
+
+  const [options, setOptions] = useState(null);
+
+  async function fetchApi() {
+    try {
+      const url = `https://geocoding-api.open-meteo.com/v1/search?name=${inputValue}&count=5&language=es&format=json`;
+      const response = await fetch(url);
+      const data = await response.json();
+      const results = data.results;
+      console.log("------------------");
+      console.log(`data is : ${JSON.stringify(data)}`);
+      console.log(`results is: ${results}`);
+      const transformedResults = results?.map((result) => {
+        return { name: result.name, city: result.admin1 };
+      });
+      setOptions(transformedResults);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    fetchApi();
+  }, [inputValue]);
 
   useEffect(() => {
     async function fetchData() {
@@ -38,10 +67,36 @@ function App() {
   return (
     <div className="App">
       {weatherData ? (
-        <WeatherDashboard
-          data={weatherData}
-          airPolutionData={airPolutionData}
-        />
+        <div className="weather-dashboard-container">
+          <DataContext.Provider value={{ data: weatherData, airPolutionData }}>
+            <WeatherDashboard />
+          </DataContext.Provider>
+          <div className="searchbox">
+            <input
+              list="input"
+              placeholder="asdf"
+              onInput={(e) => {
+                setInputValue(e.target.value);
+              }}
+            />
+            <button
+              onClick={() => {
+                console.log(dataListRef.current);
+              }}
+            >
+              Buscar
+            </button>
+            <ul>
+              {options?.map((option) => {
+                return (
+                  <li>
+                    {option.name} {option.city}
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        </div>
       ) : (
         "Loading"
       )}

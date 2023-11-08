@@ -1,17 +1,17 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import MinMaxTemp from "./MinMaxTemp";
 import CurrentTemp from "./CurrentTemp";
 import Highlights from "./Highlights";
 import { BarChart } from "./BarChart";
 import Chart from "chart.js/auto";
 import { CategoryScale } from "chart.js";
-
 import DataContext from "../contexts/DataContext";
 import { ISO8601DateStringToHHMMString } from "../functions";
 Chart.register(CategoryScale);
 
-export default function WeatherDashboard({ data, airPolutionData }) {
+export default function WeatherDashboard() {
+  const { data } = useContext(DataContext);
   const [hourlyTemperature, setHourlyTemperature] = useState({
     labels: data.hourly.time.map((timeString, index) => {
       if (index % 2 === 0) {
@@ -42,14 +42,12 @@ export default function WeatherDashboard({ data, airPolutionData }) {
 
   return (
     <div className="weather-dashboard">
-      <DataContext.Provider value={{ data, airPolutionData }}>
-        <Highlights />
-        <div className="temperature">
-          <MinMaxTemp />
-          <CurrentTemp />
-        </div>
-        <BarChart chartData={hourlyTemperature} />
-      </DataContext.Provider>
+      <Highlights />
+      <div className="temperature">
+        <MinMaxTemp />
+        <CurrentTemp />
+      </div>
+      <BarChart chartData={hourlyTemperature} />
     </div>
   );
 }
