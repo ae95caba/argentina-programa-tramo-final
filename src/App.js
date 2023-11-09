@@ -15,10 +15,6 @@ function App() {
   const firstLiRef = useRef(null);
   const [options, setOptions] = useState(null);
 
-  useEffect(() => {
-    console.log(selectedLocation);
-  }, [selectedLocation]);
-
   async function fetchLocations() {
     try {
       const url = `https://geocoding-api.open-meteo.com/v1/search?name=${searchboxValue}&count=5&language=es&format=json`;
@@ -107,7 +103,7 @@ function App() {
                   if (options) {
                     const firstOption = options[0];
                     setSelectedLocation({
-                      name: firstOption.name,
+                      name: firstOption.name + " " + firstOption.city,
                       lat: firstOption.lat,
                       lon: firstOption.lon,
                     });
@@ -126,7 +122,7 @@ function App() {
                     className={index}
                     onClick={() => {
                       setSelectedLocation({
-                        name: option.name,
+                        name: option.name + " " + option.city,
                         lat: option.lat,
                         lon: option.lon,
                       });
