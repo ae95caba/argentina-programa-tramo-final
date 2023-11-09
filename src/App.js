@@ -94,29 +94,31 @@ function App() {
             <WeatherDashboard />
           </DataContext.Provider>
           <div className="searchbox">
-            <input
-              list="input"
-              placeholder="asdf"
-              onInput={(e) => {
-                setSearchboxValue(e.target.value);
-              }}
-            />
-            <button
-              onClick={() => {
-                if (options) {
-                  const firstOption = options[0];
-                  setSelectedLocation({
-                    name: firstOption.name,
-                    lat: firstOption.lat,
-                    lon: firstOption.lon,
-                  });
-                } else {
-                  alert("Debes buscar algo");
-                }
-              }}
-            >
-              Buscar
-            </button>
+            <div>
+              <input
+                list="input"
+                placeholder="asdf"
+                onInput={(e) => {
+                  setSearchboxValue(e.target.value);
+                }}
+              />
+              <button
+                onClick={() => {
+                  if (options) {
+                    const firstOption = options[0];
+                    setSelectedLocation({
+                      name: firstOption.name,
+                      lat: firstOption.lat,
+                      lon: firstOption.lon,
+                    });
+                  } else {
+                    alert("Debes buscar algo");
+                  }
+                }}
+              >
+                Buscar
+              </button>
+            </div>
             <ul>
               {options?.map((option, index) => {
                 return (

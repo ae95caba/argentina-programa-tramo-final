@@ -41,6 +41,7 @@ body,
     flex-direction: column;
     gap: var(--medium);
     width: max-content;
+    justify-content: center;
     margin-top: var(--medium);
     & input {
       border: solid black var(--border);
@@ -58,7 +59,16 @@ body,
     & ul {
       display: flex;
       flex-direction: column;
-      gap: var(--medium);
+
+      & li:hover {
+        cursor: pointer;
+        background-color: black;
+        color: white;
+      }
+      & li {
+        padding: var(--small);
+        text-align: center;
+      }
     }
   }
 }
