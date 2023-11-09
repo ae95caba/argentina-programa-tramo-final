@@ -90,7 +90,7 @@ function App() {
             <WeatherDashboard />
           </DataContext.Provider>
           <div className="searchbox">
-            <div>
+            <div className="container">
               <input
                 list="input"
                 placeholder="asdf"

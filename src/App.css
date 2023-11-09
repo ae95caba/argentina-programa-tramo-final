@@ -36,26 +36,32 @@ body,
   gap: var(--large);
   border: solid black var(--border);
   & .searchbox {
-    font-size: var(--medium);
+    font-size: var(--small);
     display: flex;
     flex-direction: column;
     gap: var(--medium);
     width: max-content;
     justify-content: center;
     margin-top: var(--medium);
-    & input {
-      border: solid black var(--border);
-      text-align: center;
-      padding: var(--small);
-      font-size: inherit;
+    & .container {
+      border: solid black 1px;
+      height: min(4vw, 4vh);
+      display: flex;
+      & input {
+        border: solid black var(--border);
+        text-align: center;
+
+        font-size: inherit;
+      }
+      & button {
+        font-size: inherit;
+        background-color: black;
+        font-weight: 900;
+        padding: 0rem var(--medium);
+        color: white;
+      }
     }
-    & button {
-      padding: var(--medium);
-      font-size: inherit;
-      background-color: black;
-      font-weight: 900;
-      color: white;
-    }
+
     & ul {
       display: flex;
       flex-direction: column;
@@ -68,6 +74,7 @@ body,
       & li {
         padding: var(--small);
         text-align: center;
+        border: solid black var(--border);
       }
     }
   }
@@ -192,10 +199,25 @@ section.highlights {
 #transport-dashboard {
   position: relative;
   height: 100%;
-}
 
-.leaflet-container {
-  height: 50%;
-  width: 100%;
-  position: relative;
+  .search {
+    display: flex;
+    font-size: var(--medium);
+    gap: var(--large);
+    width: fit-content;
+    margin: var(--large) auto;
+    flex-wrap: wrap;
+    & select {
+      border: solid black var(--border);
+      font-size: inherit;
+    }
+  }
+
+  .leaflet-container {
+    height: 40%;
+    width: 100%;
+    max-width: min(100vh, 100vw);
+    margin: 0rem auto;
+    position: relative;
+  }
 }

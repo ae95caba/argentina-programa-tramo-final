@@ -86,15 +86,17 @@ function TransportDashboard() {
         setIsALineSelected(e.target.value);
       }}
     >
-      <label>Linea de colectivo:</label>
-      <select>
-        <option value="" selected disabled>
-          Seleciona una linea
-        </option>
-        {OptionsArr.map((line) => (
-          <option value={line.code}>{line.name}</option>
-        ))}
-      </select>
+      <div className="search">
+        <label>Linea de colectivo:</label>
+        <select>
+          <option value="" selected disabled>
+            Seleciona una linea
+          </option>
+          {OptionsArr.map((line) => (
+            <option value={line.code}>{line.name}</option>
+          ))}
+        </select>
+      </div>
 
       <MapContainer center={center} zoom={10}>
         <TileLayer
