@@ -9,7 +9,7 @@ function App() {
 
   const [airPolutionData, setAirPolutionData] = useState(null);
 
-  const [searchboxValue, setSearchboxValue] = useState(null);
+  const [searchboxValue, setSearchboxValue] = useState("Mariano Acosta");
 
   const [selectedLocation, setSelectedLocation] = useState(null);
   const firstLiRef = useRef(null);
@@ -93,7 +93,8 @@ function App() {
             <div className="container">
               <input
                 list="input"
-                placeholder="asdf"
+                defaultValue={"Mariano Acosta"}
+                placeholder="Escriba un lugar"
                 onInput={(e) => {
                   setSearchboxValue(e.target.value);
                 }}
